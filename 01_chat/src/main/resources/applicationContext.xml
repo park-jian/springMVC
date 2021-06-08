@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- 만약 bean의 내용이 많다면 xml파일 자체의 코드가 길어질수 있으므로 import태그를 사용할 수 있음 -->
+
+<import resource ="/personContext.xml"/>
+<import resource="/sampleContext.xml"/>
+
+
+<bean id="data" class="kr.or.iei.bean.test.TestData" >
+	<constructor-arg>
+		<value>100</value>	
+	</constructor-arg>	
+</bean>
+
+
+<!-- CollectionListBean에 사용될 Bean만들기 -->
+<bean id="listBean" class="kr.or.iei.bean.test.CollectionListBean">
+	<property name="nameList">
+		<list>
+			<value>홍길동</value>
+			<value>김말똥</value>
+			<value>고길똥</value>
+			<value>홍김고</value>
+			<value>유비</value>
+		</list>
+	</property>
+</bean>
+
+<!-- ColectionSetBean에 사용될 Bean만들기 -->
+<bean id="setBean" class="kr.or.iei.bean.test.CollectionSetBean">
+	<property name="nameSet">
+		<set>
+			<value>홍길동</value>
+			<value>김말똥</value>
+			<value>고길똥</value>
+			<value>김말똥</value>
+		</set>
+		</property>
+
+
+</bean>
+
+<!-- CollectionMapBean에 사용될 Bean만들기 -->
+<bean id="mapBean" class="kr.or.iei.bean.test.CollectionMapBean">
+	<property name="dataMap">
+		<map>
+			<entry>
+				<key><value>홍길동</value></key>
+				<value>경기도 부천시</value>
+			</entry>
+			<entry>
+				<key><value>김말똥</value></key>
+				<value>서울시 양천구</value>
+			</entry>
+			<entry>
+				<key><value>고길똥</value></key>
+				<value>대구시 달서구</value>
+			</entry>
+		
+		</map>
+	
+	
+	</property>
+
+
+</bean>
+
+
+
+
+</beans>

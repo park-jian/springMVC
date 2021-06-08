@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<!--  Xml에서 bean을 생성할때에는 2가지 방식이 있음 -->
+<!-- 1. setter로 데이터를 셋팅하면서 생성하는 방식 -->
+<!-- 2. constructor(생성자)로 데이터를 셋팅하면서 생성하는 방식 -->
+
+<!-- Person 객체 생성() -->
+<bean id="ps1" class="kr.or.iei.person.model.vo.Person">
+	<property name="name" value="홍길동"></property>
+	<property name="age">
+		<value type="java.lang.Integer">20</value>
+	<!-- Integer로 굳이 명시 안하고 그냥 <value>20</value>로 해도 알아서 데이터가 변환되어 들어감. -->
+	</property>
+	<property name="addr" value="경기도"></property>
+	<!-- 이름이나 주소도 <value>홍길동</value>로 처리해도 됨 -->
+
+</bean>
+	<!-- Person 객체 생성 (constructor) -->
+	<bean id="ps2" class="kr.or.iei.person.model.vo.Person">
+		<constructor-arg value="김말똥"/>
+		<constructor-arg>
+			<value>30</value>
+		</constructor-arg>
+		<constructor-arg value="서울시"></constructor-arg>
+	</bean>
+	
+	<!-- 매니저 클래스에 생성된 객체 주입 -->
+	<bean id="pMgr" class="kr.or.iei.person.model.vo.PersonMgr">
+		<constructor-arg ref="ps1"></constructor-arg>
+	</bean>
+</beans>

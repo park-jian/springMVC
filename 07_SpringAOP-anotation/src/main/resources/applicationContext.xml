@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+
+<import resource="/jdbc-context.xml"/>
+
+<!-- aop를 어노테이션으로 설정하려면 아래 설정을 해주어야 함 -->
+<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+
+<!-- interface를 Implements하는 Class를 Pointcut으로 지정할 경우에는 위에 코드를 무조건 사용한다고 생각
+아닌경우에는xml방식은 생략 가능 / 어노테이션은 필요하다라고 생각하면 됨 -->
+
+
+</beans>

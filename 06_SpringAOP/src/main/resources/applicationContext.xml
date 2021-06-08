@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+
+<import resource="/jdbc-context.xml"/>
+
+<!--  Log4jAdvice Bean 생성 -->
+<bean id="log" class="kr.or.iei.common.Log4jAdvice"></bean>
+
+<!-- AOP설정 -->
+<aop:config>
+	<aop:pointcut expression="execution(* kr.or.iei.member.model.service.*ServiceImpl.*(..))" id="allPointcut"/>
+	<aop:pointcut expression="execution(int kr.or.iei.member.model.service.*ServiceImpl.*(..))" id="returnIntPointcut"/>
+	<aop:aspect ref="log">
+	 	<aop:after method="afterLog" pointcut-ref="allPointcut"/>
+	 	
+	 	<!-- 만약 return값을 가져다가 사용하려면 returning이라는 속성을 추가해주어야함. -->
+	 	<aop:after-returning method="afterReturningLog" pointcut-ref="allPointcut" returning="obj"/>
+	 	
+	 	
+	 	
+	 	<!-- 만약 Exception객체를 가져다가 사용하려면 throwing 속성을 추가해주어야 함. -->
+	 	<aop:after-throwing method="afterThrowingLog" pointcut-ref="allPointcut" throwing="e"/>
+	 	
+	 	
+		<!-- <aop:before method="beforeLog" pointcut-ref="allPointcut"/> --> 
+	 
+		<!-- <aop:around method="aroundLog" pointcut-ref="allPointcut"/> -->
+		
+	 <!-- 
+		<aop:before method="printLoggin" pointcut-ref="allPointcut"/>
+	 	<aop:after method="printTransactionLog" pointcut-ref="returnIntPointcut"/>
+	 -->	
+	
+	</aop:aspect>
+</aop:config>
+
+<!-- aop설정되는 클래스가 Interface를 상송하면 주어야 하는 설정(Interface를 사용하지 않으면 생략해도 되는 설정 우리는 serviceimpl이 상속중 -->
+<aop:aspectj-autoproxy proxy-target-class="true"/>
+
+
+</beans>

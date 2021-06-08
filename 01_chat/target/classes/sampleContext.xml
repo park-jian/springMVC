@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- 해당xml 파일은 bean(자바 객체)을 만들수 있는 공간
+즉, Spring에서는 필요한 bean들을 여기에 기록해 놓고,
+필요한 경우 xml을 통해서 가져와서 사용할 수 있는 구조를 가지고 있음
+컨테이너가 해당 xml파일 내용을 보고 필요한 bean을 만ㄷ르어서 전달해주는 방식
+ -->
+ 
+ <!-- bean 제작 예시 -->
+ <!--  <bean id="변수명" class="패키지.클래스명"></bean> -->
+ 
+ <!-- 삼성 bean -->
+ <bean id="samsung" class="kr.or.iei.tv.model.vo.SamSungTV"></bean>
+ 
+ <!-- LG bean -->
+ <bean id="lg" class="kr.or.iei.tv.model.vo.LgTV"></bean>
+ 
+ <!-- TV bean을 저장하고 있는 객체 -->
+ <!-- 클라이언트가 TV를 바꿀때 아래에 있는 TVmgr 객체만 수정하면 됨 -->
+ <bean id="tvMgr" class="kr.or.iei.tv.model.vo.TVmgr">
+ 	<property name="tv" ref="samsung"></property>
+ </bean>
+</beans>

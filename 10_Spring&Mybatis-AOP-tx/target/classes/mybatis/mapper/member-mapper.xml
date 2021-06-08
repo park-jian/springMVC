@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+<mapper namespace="member">
+	<select id="selectLoginMember" parameterType="Member" resultType="Member">
+	SELECT 
+		USERNO as userNo,
+		USERID as userId,
+		USERPWD as userPwd,
+		USERNAME as userName,
+		AGE as age,
+		ADDRESS as address,
+		ENROLLDATE as enrollDate,
+		END_YN as endYN	
+	FROM MEMBER 
+	WHERE USERID=#{userId} AND USERPWD=#{userPwd} AND END_YN='N'
+	
+	
+	</select>
+	
+	<insert id="insertSignupMember" parameterType="Member">
+		INSERT INTO MEMBER VALUES(MEMBER_SEQ.NEXTVAL, #{userId},#{userPwd},#{userName},#{age},#{address},DEFAULT,'N')
+	</insert>
+	<select id="selectIdCheck" parameterType="Member" resultType="Member">
+		SELECT
+			USERNO as userNo
+		FROM MEMBER
+		WHERE USERID=#{userId}
+	
+	</select>
+	<select id="selectRenewalMember" resultType="Member">
+		SELECT 
+			USERNO as userNo,
+			USERID as userId,
+			USERPWD as userPwd,
+			USERNAME as userName,
+			AGE as age,
+			ADDRESS as address,
+			ENROLLDATE as enrollDate,
+			END_YN as endYN	
+		FROM MEMBER 
+		WHERE USERID=#{userId} AND END_YN='N'
+		
+		
+	</select>
+	<update id="updateMember">
+		UPDATE MEMBER
+			SET
+				USERPWD = #{userPwd},
+				AGE = #{age},
+				ADDRESS = #{address}
+			WHERE USERID=#{userId}
+	</update>
+	<update id="updateWithDrawMember">
+		UPDATE MEMBER
+			SET
+				END_YN='Y'
+			WHERE USERNO=#{userNo}
+	
+	</update>
+	<select id="selectMemberAllList" resultType="Member">
+		SELECT 
+			USERNO as userNo,
+			USERID as userId,
+			USERPWD as userPwd,
+			USERNAME as userName,
+			AGE as age,
+			ADDRESS as address,
+			ENROLLDATE as enrollDate,
+			END_YN as endYN	
+		FROM MEMBER 
+		
+	</select>
+	<update id="updateEndYNStateChange">
+		UPDATE MEMBER
+			SET
+				END_YN=#{endYN}
+			WHERE USERNO=#{userNo}	
+	
+	</update>
+  
+</mapper>

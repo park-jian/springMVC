@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+
+<import resource="/jdbc-context.xml"/>
+
+<!-- MemberAOP Advice Bean 객체 생성 -->
+<bean id="log" class="kr.or.iei.common.MemberAOP"></bean>
+
+
+<aop:config>
+<!--  pointcut의id는 맘대로 정해. -->
+	<aop:pointcut expression="execution(* kr.or.iei.member.model.service.MemberServiceImpl.selectLoginMember(..))" id="loginPointcut"/>
+	
+	<aop:aspect ref="log"> <!-- ref는 어느 advise를 쓸건지 적는거고 bean의 id를 적는것 -->
+	
+		<aop:before method="loginLog" pointcut-ref="loginPointcut"/> <!-- pointcut-ref는 어느 대상에게 쓸건지 적는것. -->
+		<aop:after-returning method="loginResultLog" pointcut-ref="loginPointcut"/>   
+	<!-- before타입에 returning타입 줄 수 없음. 왜냐면 메소드 호출전인데 메소드 리턴값을 가져올 수 없음 -->
+	
+	</aop:aspect>
+
+
+
+
+</aop:config>
+<aop:aspectj-autoproxy proxy-target-class="true"/> <!-- 인터페이스 상속 받았으면 이걸 쓰도록 하여라. -->
+</beans>
